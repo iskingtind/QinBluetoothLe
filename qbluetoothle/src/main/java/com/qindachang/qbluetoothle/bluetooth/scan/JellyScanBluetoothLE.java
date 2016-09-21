@@ -13,22 +13,22 @@ public class JellyScanBluetoothLE extends ScanBluetoothLE {
 
     private BluetoothAdapter mBluetoothAdapter = QinBluetoothAdapter.getBluetoothAdapter();
     private Handler mHandler = new Handler();
+    private boolean mScanning;
 
     @Override
     public void ScanBLE(boolean enable, int SCAN_PERIOD) {
         if (enable) {
-
             mHandler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                   // mScanning = false;
+                    mScanning = false;
                     mBluetoothAdapter.stopLeScan(mLeScanCallback);
                 }
             }, SCAN_PERIOD);
-            //mScanning = true;
+            mScanning = true;
             mBluetoothAdapter.startLeScan(mLeScanCallback);
         } else {
-           // mScanning = false;
+            mScanning = false;
             mBluetoothAdapter.stopLeScan(mLeScanCallback);
         }
     }
