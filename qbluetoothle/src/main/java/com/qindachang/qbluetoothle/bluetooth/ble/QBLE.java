@@ -17,11 +17,11 @@ import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.os.Handler;
 import android.os.IBinder;
-
 import android.util.Log;
 
 import com.qindachang.qbluetoothle.bluetooth.attributes.SampleGattAttributes;
 import com.qindachang.qbluetoothle.bluetooth.attributes.ServicesDiscoveredBean;
+import com.qindachang.qbluetoothle.bluetooth.builder.BluetoothLEConfigure;
 import com.qindachang.qbluetoothle.bluetooth.callback.QGattCallback;
 import com.qindachang.qbluetoothle.bluetooth.listener.onLeConnectListener;
 import com.qindachang.qbluetoothle.bluetooth.listener.onLeScanListener;
@@ -64,6 +64,8 @@ public class QBLE extends QGattCallback {
 
     private volatile static QBLE instance;
 
+    private BluetoothLEConfigure mConfigure;
+
     public static QBLE getInstance() {
         if (instance == null) {
             synchronized (QBLE.class) {
@@ -77,6 +79,18 @@ public class QBLE extends QGattCallback {
 
     public void init(Context context) {
         this.mContext = context;
+        if (mBluetoothAdapter == null) {
+            final BluetoothManager bluetoothManager =
+                    (BluetoothManager) context.getSystemService(Context.BLUETOOTH_SERVICE);
+            mBluetoothAdapter = bluetoothManager.getAdapter();
+        }
+        mHandler = new Handler();
+    }
+
+    public void init(Context context, int sdk_version) {
+        this.mContext = context;
+        mConfigure = new BluetoothLEConfigure();
+        mConfigure.setSDK_VERSION(sdk_version);
         if (mBluetoothAdapter == null) {
             final BluetoothManager bluetoothManager =
                     (BluetoothManager) context.getSystemService(Context.BLUETOOTH_SERVICE);
@@ -228,6 +242,7 @@ public class QBLE extends QGattCallback {
                 }
             };
 
+
     private onLeScanListener mOnLeScanListener;
 
     private boolean ScanEnable;
@@ -274,6 +289,7 @@ public class QBLE extends QGattCallback {
     public void doScanWithServiceUUID(UUID[] uuids) {
         scanBLEWithUUID(uuids, ScanEnable, SCAN_PERIOD);
     }
+
 
     /**
      * Gets the scan results of the Bluetooth device
@@ -808,6 +824,9 @@ public class QBLE extends QGattCallback {
         } else if (status == BluetoothGatt.GATT_FAILURE) {
             //失败
         }
+
     }
+
+
 
 }
