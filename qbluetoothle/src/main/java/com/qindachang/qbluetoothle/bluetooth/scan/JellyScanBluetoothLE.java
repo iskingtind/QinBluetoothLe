@@ -35,7 +35,7 @@ public class JellyScanBluetoothLE extends ScanBluetoothLE {
 
     private BluetoothAdapter.LeScanCallback mLeScanCallback = new BluetoothAdapter.LeScanCallback() {
         @Override
-        public void onLeScan(BluetoothDevice bluetoothDevice, int rssi, byte[] bytes) {
+        public void onLeScan(BluetoothDevice bluetoothDevice, int rssi, byte[] scanRecord) {
 
         }
     };
