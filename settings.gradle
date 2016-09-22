@@ -1,1 +1,1 @@
-include ':app', ':qbluetoothle'
+include ':app', ':library'

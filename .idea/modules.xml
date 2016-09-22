@@ -4,7 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/QinBluetoothLe.iml" filepath="$PROJECT_DIR$/QinBluetoothLe.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/qbluetoothle/qbluetoothle.iml" filepath="$PROJECT_DIR$/qbluetoothle/qbluetoothle.iml" />
+      <module fileurl="file://$PROJECT_DIR$/library/qbluetoothle.iml" filepath="$PROJECT_DIR$/library/qbluetoothle.iml" />
     </modules>
   </component>
 </project>
