@@ -122,7 +122,7 @@ public class QinBluetoothLE {
                     }
                     break;
                 case HandlerConstant.BATCH_SCAN_RESULTS:
-                    if (mOnScanCallBack != null) {
+                    if (mOnScanCallBack != null&&Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                         mOnScanCallBack.onBatchScanResults((List<ScanResult>) message.obj);
                     }
                     break;

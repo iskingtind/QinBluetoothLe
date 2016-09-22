@@ -1,8 +1,8 @@
 package com.qindachang.qbluetoothle.bluetooth.scan;
 
-
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.le.ScanResult;
+import android.os.Build;
 
 import java.util.List;
 
@@ -14,7 +14,11 @@ public abstract class OnScanCallBack {
 
     public abstract void onScanResult(BluetoothDevice bluetoothDevice, int rssi, byte[] scanRecord);
 
-    public abstract void onBatchScanResults(List<ScanResult> results);
+    public void onBatchScanResults(List<ScanResult> results){
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            throw new RuntimeException("Your phone API level is lower than LOLLIPOP.21");
+        }
+    }
 
     public abstract void onScanFailed(int errorCode);
 
