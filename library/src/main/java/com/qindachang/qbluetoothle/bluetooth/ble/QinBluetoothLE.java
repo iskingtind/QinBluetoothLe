@@ -32,9 +32,10 @@ public class QinBluetoothLE {
 
     private boolean isScanning;
 
+    private ScanBluetoothLE scanBluetoothLE;
+
     private void scanBLE(boolean enable, int SCAN_PERIOD, UUID[] serviceUUID) {
         ScanBluetoothLEFactory scanBluetoothLEFactory = new ScanBluetoothLEFactory();
-        ScanBluetoothLE scanBluetoothLE;
         if (BluetoothLEConfigure.getSDK_VERSION() >= 21 && Version.PHONE_SYSTEM >= 21) {
             //5.x API
             Log.v(TAG, "use LOLLIPOP SDK VERSION Scan bluetoothLE API21");
@@ -63,7 +64,9 @@ public class QinBluetoothLE {
     }
 
     public void stopScan() {
-        scanBLE(false, scanPeriod, null);
+        if (scanBluetoothLE != null) {
+            scanBluetoothLE.ScanBLE(false, scanPeriod, null);
+        }
     }
 
     /**

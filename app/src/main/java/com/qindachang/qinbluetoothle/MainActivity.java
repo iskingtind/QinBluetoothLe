@@ -71,5 +71,6 @@ public class MainActivity extends AppCompatActivity {
                         Log.d("debug", "扫描状态：" + qinBluetoothLE.getScanning());
                     }
                 }).doScan();
+
     }
 }
