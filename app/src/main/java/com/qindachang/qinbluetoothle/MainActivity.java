@@ -4,6 +4,7 @@ import android.bluetooth.BluetoothDevice;
 import android.bluetooth.le.ScanResult;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.LoginFilter;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -48,12 +49,14 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void onBatchScanResults(List<ScanResult> results) {
-
+                        for (int i=0;i<results.size();i++) {
+                            Log.d("debug", "onBatchScanResults:" + results.get(i).getDevice().getName());
+                        }
                     }
 
                     @Override
                     public void onScanFailed(int errorCode) {
-
+                        Log.d("debug", "onScanFailed:" + errorCode);
                     }
 
                     @Override

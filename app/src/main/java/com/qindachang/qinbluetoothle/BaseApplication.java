@@ -2,6 +2,7 @@ package com.qindachang.qinbluetoothle;
 
 import android.app.Application;
 
+import com.qindachang.qbluetoothle.bluetooth.configure.BluetoothLEConfigure;
 import com.qindachang.qbluetoothle.bluetooth.utils.QinBluetoothManager;
 
 /**
@@ -11,6 +12,7 @@ public class BaseApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        BluetoothLEConfigure.setSDK_VERSION(21);
         QinBluetoothManager.initialize(this);
 
     }
