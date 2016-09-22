@@ -1,17 +1,21 @@
 package com.qindachang.qbluetoothle.bluetooth.ble;
 
 import android.annotation.TargetApi;
+import android.content.pm.ProviderInfo;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 
 import com.qindachang.qbluetoothle.bluetooth.builder.BluetoothLEConfigure;
+import com.qindachang.qbluetoothle.bluetooth.constant.HandlerConstant;
+import com.qindachang.qbluetoothle.bluetooth.scan.BLEScanResult;
 import com.qindachang.qbluetoothle.bluetooth.scan.ScanBluetoothLE;
 import com.qindachang.qbluetoothle.bluetooth.scan.ScanBluetoothLEFactory;
 import com.qindachang.qbluetoothle.bluetooth.scan.OnScanCallBack;
 import com.qindachang.qbluetoothle.bluetooth.type.Version;
 
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -25,15 +29,17 @@ public class QinBluetoothLE {
 
     private int scanPeriod = 10000;
 
+    private boolean isScanning;
+
     private void scanBLE(boolean enable, int SCAN_PERIOD, UUID[] serviceUUID) {
         ScanBluetoothLEFactory scanBluetoothLEFactory = new ScanBluetoothLEFactory();
         ScanBluetoothLE scanBluetoothLE;
         if (BluetoothLEConfigure.getSDK_VERSION() >= 21 && Version.PHONE_SYSTEM >= 21) {
-            //执行5.x的API
+            //5.x API
             Log.v(TAG, "use LOLLIPOP SDK VERSION Scan bluetoothLE API21");
             scanBluetoothLE = scanBluetoothLEFactory.getScanBluetoothLE(ScanBluetoothLEFactory.LOLLIPOP, mHandler);
         } else {
-            //执行4.3的API
+            //4.3 API
             Log.v(TAG, "your phone only use JELLY SDK VERSION Scan bluetoothLE API18");
             scanBluetoothLE = scanBluetoothLEFactory.getScanBluetoothLE(ScanBluetoothLEFactory.JELLY, mHandler);
         }
@@ -82,22 +88,48 @@ public class QinBluetoothLE {
         scanBLE(true, scanPeriod, ServiceUUID);
     }
 
+    /**
+     * This method requires more than Android's LOLLIPOP system can be used
+     */
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public void doScanWithScanFilter() {
 
     }
-
 
     public QinBluetoothLE setOnBLEScanListener(OnScanCallBack onScanCallBack) {
         mOnScanCallBack = onScanCallBack;
         return this;
     }
 
+    /**
+     * Get Bluetooth scan status
+     */
+    public boolean getScanning() {
+        return isScanning;
+    }
+
     private Handler mHandler = new Handler(new Handler.Callback() {
         @Override
         public boolean handleMessage(Message message) {
             switch (message.what) {
-                case 1:
+                case HandlerConstant.SCAN_RESULT:
+                    BLEScanResult bleScanResult = (BLEScanResult) message.obj;
+                    if (mOnScanCallBack != null) {
+                        mOnScanCallBack.onScanResult(bleScanResult.getBluetoothDevice(), bleScanResult.getRssi(), bleScanResult.getScanRecord());
+                    }
+                    break;
+                case HandlerConstant.BATCH_SCAN_RESULTS:
+                    break;
+                case HandlerConstant.SCAN_FAILED:
+                    break;
+                case HandlerConstant.SCAN_COMPLETED:
+                    List<BLEScanResult> bleScanResults = (List<BLEScanResult>) message.obj;
+                    if (mOnScanCallBack != null) {
+                        mOnScanCallBack.onScanCompleted(bleScanResults);
+                    }
+                    break;
+                case HandlerConstant.SCANNING:
+                    isScanning = message.arg1 != 0;
                     break;
             }
             return false;

@@ -13,7 +13,6 @@ public abstract class OnScanCallBack {
 
     public abstract void onScanResult(BluetoothDevice bluetoothDevice, int rssi, byte[] scanRecord);
 
-
     public abstract void onBatchScanResults(List<ScanResult> results);
 
 

@@ -8,12 +8,14 @@ import android.os.Build;
 import android.os.Handler;
 
 import com.qindachang.qbluetoothle.bluetooth.adapter.QinBluetoothAdapter;
+import com.qindachang.qbluetoothle.bluetooth.constant.HandlerConstant;
 
 import java.util.List;
 import java.util.UUID;
 
 /**
- * Created by admin on 2016/9/21.
+ * Android LOLLIPOP 5.1 Scan BluetoothLE API
+ * Created by qin da chang  on 2016/9/21.
  */
 @TargetApi(Build.VERSION_CODES.LOLLIPOP)
 public class LollipopScanBluetoothLE extends ScanBluetoothLE {
@@ -24,6 +26,11 @@ public class LollipopScanBluetoothLE extends ScanBluetoothLE {
         @Override
         public void onScanResult(int callbackType, ScanResult result) {
             super.onScanResult(callbackType, result);
+            BLEScanResult bleScanResult = new BLEScanResult();
+            bleScanResult.setBluetoothDevice(result.getDevice());
+            bleScanResult.setRssi(result.getRssi());
+            bleScanResult.setScanRecord(result.getScanRecord().getBytes());
+            handler.obtainMessage(HandlerConstant.SCAN_RESULT, bleScanResult).sendToTarget();
         }
 
         @Override

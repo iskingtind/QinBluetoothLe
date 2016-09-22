@@ -12,6 +12,30 @@ public class BLEScanResult implements Parcelable {
     private int rssi;
     private byte[] scanRecord;
 
+    public BluetoothDevice getBluetoothDevice() {
+        return mBluetoothDevice;
+    }
+
+    public void setBluetoothDevice(BluetoothDevice bluetoothDevice) {
+        mBluetoothDevice = bluetoothDevice;
+    }
+
+    public int getRssi() {
+        return rssi;
+    }
+
+    public void setRssi(int rssi) {
+        this.rssi = rssi;
+    }
+
+    public byte[] getScanRecord() {
+        return scanRecord;
+    }
+
+    public void setScanRecord(byte[] scanRecord) {
+        this.scanRecord = scanRecord;
+    }
+
     @Override
     public int describeContents() {
         return 0;

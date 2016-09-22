@@ -5,13 +5,15 @@ import android.bluetooth.BluetoothDevice;
 import android.os.Handler;
 
 import com.qindachang.qbluetoothle.bluetooth.adapter.QinBluetoothAdapter;
+import com.qindachang.qbluetoothle.bluetooth.constant.HandlerConstant;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 /**
- * Created by admin on 2016/9/21.
+ * Android Jelly 4.3 Scan BluetoothLE API
+ * Created by qin da chang on 2016/9/21.
  */
 public class JellyScanBluetoothLE extends ScanBluetoothLE {
 
@@ -19,6 +21,7 @@ public class JellyScanBluetoothLE extends ScanBluetoothLE {
     private Handler mHandler = new Handler();
     private boolean mScanning;
     private List<BLEScanResult> mBLEScanResultList = new ArrayList<>();
+    private List<BluetoothDevice> mBluetoothDeviceList = new ArrayList<>();
     private Handler handler;
 
     public JellyScanBluetoothLE(Handler handler) {
@@ -27,12 +30,16 @@ public class JellyScanBluetoothLE extends ScanBluetoothLE {
 
     @Override
     public void ScanBLE(boolean enable, int SCAN_PERIOD, UUID[] serviceUUID) {
+        mBluetoothDeviceList.clear();
+        mBLEScanResultList.clear();
         if (enable) {
             mHandler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     mScanning = false;
+                    scanningCallBack(mScanning);
                     mBluetoothAdapter.stopLeScan(mLeScanCallback);
+                    scanCompleteCallBack();
                 }
             }, SCAN_PERIOD);
             mScanning = true;
@@ -44,13 +51,34 @@ public class JellyScanBluetoothLE extends ScanBluetoothLE {
         } else {
             mScanning = false;
             mBluetoothAdapter.stopLeScan(mLeScanCallback);
+            scanCompleteCallBack();
         }
+        scanningCallBack(mScanning);
     }
 
     private BluetoothAdapter.LeScanCallback mLeScanCallback = new BluetoothAdapter.LeScanCallback() {
         @Override
         public void onLeScan(BluetoothDevice bluetoothDevice, int rssi, byte[] scanRecord) {
-
+            if (!mBluetoothDeviceList.contains(bluetoothDevice)) {
+                mBluetoothDeviceList.add(bluetoothDevice);
+                BLEScanResult bleScanResult = new BLEScanResult();
+                bleScanResult.setBluetoothDevice(bluetoothDevice);
+                bleScanResult.setRssi(rssi);
+                bleScanResult.setScanRecord(scanRecord);
+                mBLEScanResultList.add(bleScanResult);
+                handler.obtainMessage(HandlerConstant.SCAN_RESULT, bleScanResult);
+            }
         }
     };
+
+    private void scanningCallBack(boolean scanning) {
+        if (scanning) {
+            handler.obtainMessage(HandlerConstant.SCANNING, 1, 1).sendToTarget();
+        }else
+            handler.obtainMessage(HandlerConstant.SCANNING, 0, 0).sendToTarget();
+    }
+
+    private void scanCompleteCallBack() {
+        handler.obtainMessage(HandlerConstant.SCAN_COMPLETED, mBLEScanResultList).sendToTarget();
+    }
 }
