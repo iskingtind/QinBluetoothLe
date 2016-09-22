@@ -2,9 +2,8 @@ package com.qindachang.qinbluetoothle;
 
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.le.ScanResult;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.LoginFilter;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
