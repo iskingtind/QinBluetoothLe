@@ -1,6 +1,7 @@
 package com.qindachang.qbluetoothle.bluetooth.ble;
 
 import android.annotation.TargetApi;
+import android.bluetooth.le.ScanResult;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
@@ -118,8 +119,14 @@ public class QinBluetoothLE {
                     }
                     break;
                 case HandlerConstant.BATCH_SCAN_RESULTS:
+                    if (mOnScanCallBack != null) {
+                        mOnScanCallBack.onBatchScanResults((List<ScanResult>) message.obj);
+                    }
                     break;
                 case HandlerConstant.SCAN_FAILED:
+                    if (mOnScanCallBack != null) {
+                        mOnScanCallBack.onScanFailed((Integer) message.obj);
+                    }
                     break;
                 case HandlerConstant.SCAN_COMPLETED:
                     List<BLEScanResult> bleScanResults = (List<BLEScanResult>) message.obj;
