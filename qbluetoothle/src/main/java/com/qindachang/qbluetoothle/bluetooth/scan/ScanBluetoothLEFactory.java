@@ -5,8 +5,8 @@ package com.qindachang.qbluetoothle.bluetooth.scan;
  */
 public class ScanBluetoothLEFactory {
 
-    public static final int JELLY = 1;
-    public static final int LOLLIPOP = 2;
+    public static final int JELLY = 18;
+    public static final int LOLLIPOP = 21;
 
     public ScanBluetoothLE getScanBluetoothLE(int scanVersion) {
         if (scanVersion == JELLY) {

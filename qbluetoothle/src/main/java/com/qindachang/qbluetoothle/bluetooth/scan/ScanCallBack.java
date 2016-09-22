@@ -19,5 +19,5 @@ public abstract class ScanCallBack {
 
     public abstract void onScanFailed(int errorCode);
 
-    public abstract void onScanCompleted();
+    public abstract void onScanCompleted(List<BLEScanResult> bleScanResultList);
 }

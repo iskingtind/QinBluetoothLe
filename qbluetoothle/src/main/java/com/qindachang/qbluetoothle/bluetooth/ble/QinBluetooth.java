@@ -1,5 +1,7 @@
 package com.qindachang.qbluetoothle.bluetooth.ble;
 
+import android.annotation.TargetApi;
+import android.os.Build;
 import android.util.Log;
 
 import com.qindachang.qbluetoothle.bluetooth.builder.BluetoothLEConfigure;
@@ -16,7 +18,7 @@ public class QinBluetooth {
 
     private final String TAG = QinBluetooth.class.getName();
 
-    private void scanBLE(boolean enable, int SCAN_PERIOD,UUID serviceUUID) {
+    private void scanBLE(boolean enable, int SCAN_PERIOD, UUID serviceUUID) {
         ScanBluetoothLEFactory scanBluetoothLEFactory = new ScanBluetoothLEFactory();
         ScanBluetoothLE scanBluetoothLE;
         if (BluetoothLEConfigure.getSDK_VERSION() >= 21 && Version.PHONE_SYSTEM >= 21) {
@@ -36,18 +38,23 @@ public class QinBluetooth {
     }
 
     public void doScanWithServiceUUID(String ServiceUUID) {
-        this.doScanWithServiceUUID(UUID.fromString(ServiceUUID),10000);
+        this.doScanWithServiceUUID(UUID.fromString(ServiceUUID), 10000);
     }
 
-    public void doScanWithServiceUUID(String ServiceUUID,int period) {
-        this.doScanWithServiceUUID(UUID.fromString(ServiceUUID),period);
+    public void doScanWithServiceUUID(String ServiceUUID, int period) {
+        this.doScanWithServiceUUID(UUID.fromString(ServiceUUID), period);
     }
 
     public void doScanWithServiceUUID(UUID ServiceUUID) {
-        this.doScanWithServiceUUID(ServiceUUID,10000);
+        this.doScanWithServiceUUID(ServiceUUID, 10000);
     }
 
-    public void doScanWithServiceUUID(UUID ServiceUUID,int period) {
+    public void doScanWithServiceUUID(UUID ServiceUUID, int period) {
+
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    public void doScanWithScanFilter() {
 
     }
 
