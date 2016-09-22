@@ -243,6 +243,7 @@ public class QBLE extends QGattCallback {
             };
 
 
+
     private onLeScanListener mOnLeScanListener;
 
     private boolean ScanEnable;
@@ -281,6 +282,7 @@ public class QBLE extends QGattCallback {
      */
     public void doScan() {
         scanBLE(ScanEnable, SCAN_PERIOD);
+        QinBluetoothLE qinBluetoothLE = new QinBluetoothLE();
     }
 
     /**

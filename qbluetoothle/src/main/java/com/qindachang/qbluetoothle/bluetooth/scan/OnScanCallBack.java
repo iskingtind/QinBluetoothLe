@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Created by admin on 2016/9/21.
  */
-public abstract class ScanCallBack {
+public abstract class OnScanCallBack {
 
     public abstract void onScanResult(BluetoothDevice bluetoothDevice, int rssi, byte[] scanRecord);
 

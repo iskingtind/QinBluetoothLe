@@ -1,17 +1,16 @@
 package com.qindachang.qbluetoothle.bluetooth.scan;
 
 import android.annotation.TargetApi;
-import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.le.BluetoothLeScanner;
 import android.bluetooth.le.ScanCallback;
 import android.bluetooth.le.ScanResult;
-import android.bluetooth.le.ScanSettings;
 import android.os.Build;
 import android.os.Handler;
 
 import com.qindachang.qbluetoothle.bluetooth.adapter.QinBluetoothAdapter;
 
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Created by admin on 2016/9/21.
@@ -40,8 +39,14 @@ public class LollipopScanBluetoothLE extends ScanBluetoothLE {
 
     private boolean mScanning;
 
+    private Handler handler;
+
+    public LollipopScanBluetoothLE(Handler handler) {
+        this.handler = handler;
+    }
+
     @Override
-    public void ScanBLE(boolean enable, int SCAN_PERIOD) {
+    public void ScanBLE(boolean enable, int SCAN_PERIOD, UUID[] serviceUUID) {
         if (enable) {
             mHandler.postDelayed(new Runnable() {
                 @Override
@@ -56,7 +61,6 @@ public class LollipopScanBluetoothLE extends ScanBluetoothLE {
             mScanning = false;
             mBluetoothLeScanner.stopScan(mScanCallback);
         }
-
     }
 
 
