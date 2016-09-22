@@ -1,8 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'com.novoda.bintray-release'//添加
-
 // This is the library version used when deploying the artifact
-version = "1.0.0"
+version = "0.0.1"
 
 android {
     compileSdkVersion 24
@@ -35,9 +34,9 @@ publish {
     userOrg = '823951895@qq.com'//bintray.com用户名
     groupId = 'com.qindachang'//jcenter上的路径
     artifactId = 'QinBluetoothLe'//项目名称
-    publishVersion = '1.0.0'//版本号
-    desc = 'Android BluetoothLe library'//描述，不重要
+    publishVersion = '0.0.1'//版本号
+    desc = 'Android Bluetooth LE library'//描述，不重要
     website = 'https://github.com/qindachang/QinBluetoothLe'//网站，不重要；尽量模拟github上的地址，例如我这样的；当然你有地址最好了
 }
 
-//最终引入方式  compile 'com.qindachang:QinBluetoothLe:1.0.0'
+//最终引入方式  compile 'com.qindachang:QinBluetoothLe:0.0.1'

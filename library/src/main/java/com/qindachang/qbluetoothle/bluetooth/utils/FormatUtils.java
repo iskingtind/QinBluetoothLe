@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 数据格式转换工具类
  * Created by qin on 2016/4/16.
  */
 public class FormatUtils {

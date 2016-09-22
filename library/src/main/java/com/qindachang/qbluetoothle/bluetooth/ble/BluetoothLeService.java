@@ -43,8 +43,7 @@ import java.util.UUID;
 
 /**
  * Service for managing connection and data communication with a GATT server hosted on a
- * given Bluetooth LE device.<><p/>
- * 用于管理连接服务和数据托管在一个给定的蓝牙LE设备GATT服务器通信。
+ * given Bluetooth LE device.
  */
 public class BluetoothLeService extends Service {
     private final static String TAG = BluetoothLeService.class.getSimpleName();
@@ -77,7 +76,7 @@ public class BluetoothLeService extends Service {
 
     // Implements callback methods for GATT events that the app cares about.  For example,
     // connection change and services discovered.
-    // 例如 连接更改和服务发现。
+    //
     private final BluetoothGattCallback mGattCallback = new BluetoothGattCallback() {
         @Override
         public void onConnectionStateChange(BluetoothGatt gatt, int status, int newState) {
@@ -254,10 +253,8 @@ public class BluetoothLeService extends Service {
 
     /**
      * Initializes a reference to the local Bluetooth adapter.
-     * 初始化一个参考本地蓝牙适配器。
      *
      * @return Return true if the initialization is successful.
-     * 如果初始化成功，则返回真。
      */
     public boolean initialize() {
         // For API level 18 and above, get a reference to BluetoothAdapter through
@@ -281,9 +278,9 @@ public class BluetoothLeService extends Service {
 
     /**
      * Connects to the GATT server hosted on the Bluetooth LE device.
-     * 连接到托管在蓝牙LE设备GATT服务器。
      *
      * @param address The device address of the destination device.
+     * @param auto    set the bluetooth is auto connect
      * @return Return true if the connection is initiated successfully. The connection result
      * is reported asynchronously through the
      * {@code BluetoothGattCallback#onConnectionStateChange(android.bluetooth.BluetoothGatt, int, int)}
@@ -326,9 +323,6 @@ public class BluetoothLeService extends Service {
      * is reported asynchronously through the
      * {@code BluetoothGattCallback#onConnectionStateChange(android.bluetooth.BluetoothGatt, int, int)}
      * callback.
-     * <p/>
-     * { @代码bluetoothgattcallback # onconnectionstatechange（android.bluetooth.bluetoothgatt，int，int）}
-     * 回调。
      */
     public void disconnect() {
         if (mBluetoothAdapter == null || mBluetoothGatt == null) {
@@ -342,7 +336,6 @@ public class BluetoothLeService extends Service {
     /**
      * After using a given BLE device, the app must call this method to ensure resources are
      * released properly.
-     * 使用一个给定的BLE设备后，应用程序必须调用这个方法来确保资源的正确释放
      */
     public void close() {
         if (mBluetoothGatt == null) {
@@ -386,10 +379,10 @@ public class BluetoothLeService extends Service {
 
     /**
      * Enables or disables notification on a give characteristic.
-     * 启用或禁用一个给定的characteristic通知。
      *
      * @param characteristic Characteristic to act on.
      * @param enabled        If true, enable notification.  False otherwise.
+     * @return is can be set Characteristic Notification
      */
     public boolean setCharacteristicNotification(BluetoothGattCharacteristic characteristic,
                                                  boolean enabled) {
@@ -447,11 +440,6 @@ public class BluetoothLeService extends Service {
      * invoked only after {@code BluetoothGatt#discoverServices()} completes successfully.
      *
      * @return A {@code List} of supported services.
-     * <p/>
-     * 检索的连接设备支持的关贸总协定的服务列表。这应该，
-     * {“代码bluetoothgatt # discoverservices() }被调用成功后完成。
-     * <p/>
-     * 返回 支持服务的List<BluetoothGattService>
      */
     public List<BluetoothGattService> getSupportedGattServices() {
         if (mBluetoothGatt == null) return null;

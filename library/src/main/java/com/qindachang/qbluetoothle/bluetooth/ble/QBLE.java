@@ -40,7 +40,6 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 
 /**
- * BLE低功耗蓝牙框架，让你很方便地去编写低功耗蓝牙代码。来自于qin
  * Created by qin on 2016/8/24.
  *
  * @author Qin Da chang
@@ -150,6 +149,8 @@ public class QBLE extends QGattCallback {
 
     /**
      * refresh the remote device cache.
+     *
+     * @return refreshDeviceCache successful
      */
     public boolean refreshDeviceCache() {
         try {
@@ -168,6 +169,8 @@ public class QBLE extends QGattCallback {
     /**
      * get the bluetoothGatt.
      * Is it useful?
+     *
+     * @return this
      */
     public BluetoothGatt getBluetoothGatt() {
         return this.mBluetoothGatt;
@@ -202,7 +205,7 @@ public class QBLE extends QGattCallback {
     }
 
     /**
-     * 停止扫描
+     *
      */
     public void stopScanning() {
         mBluetoothAdapter.stopLeScan(mLeScanCallback);
@@ -243,7 +246,6 @@ public class QBLE extends QGattCallback {
             };
 
 
-
     private onLeScanListener mOnLeScanListener;
 
     private boolean ScanEnable;
@@ -254,6 +256,7 @@ public class QBLE extends QGattCallback {
      *
      * @param SCAN_PERIOD      scanning period ,millis
      * @param onLeScanListener The callback that will run
+     * @return this
      */
     public QBLE setOnLeScanListener(int SCAN_PERIOD, onLeScanListener onLeScanListener) {
         this.mOnLeScanListener = onLeScanListener;
@@ -266,6 +269,7 @@ public class QBLE extends QGattCallback {
      * Register a callback to be invoked when this phone is scanning.
      *
      * @param onLeScanListener The callback that will run
+     * @return this
      */
     public QBLE setOnLeScanListener(onLeScanListener onLeScanListener) {
         this.setOnLeScanListener(15000, onLeScanListener);
@@ -286,7 +290,8 @@ public class QBLE extends QGattCallback {
     }
 
     /**
-     * Will start executing the scan with Service UUID
+     * @param uuids uuid[]
+     *              Will start executing the scan with Service UUID
      */
     public void doScanWithServiceUUID(UUID[] uuids) {
         scanBLEWithUUID(uuids, ScanEnable, SCAN_PERIOD);
@@ -315,6 +320,7 @@ public class QBLE extends QGattCallback {
      * Connect Bluetooth.
      *
      * @param bluetoothDevice BluetoothDevice
+     * @param auto            auto connect to bluetooth le
      */
     public void connectBLE(BluetoothDevice bluetoothDevice, boolean auto) {
         this.setBluetoothDevice(bluetoothDevice);
@@ -341,7 +347,7 @@ public class QBLE extends QGattCallback {
         this.mBluetoothDevice = bluetoothDevice;
     }
 
-    //写这里用来管理Service的生命周期
+
     private final ServiceConnection mServiceConnection = new ServiceConnection() {
 
         @Override
@@ -352,7 +358,7 @@ public class QBLE extends QGattCallback {
                 Log.e(TAG, "Unable to initialize Bluetooth");
             }
             // Automatically connects to the device upon successful start-up initialization.
-            // 在成功的启动初始化时, 自动连接到设备。
+
             mBluetoothLeService.connect(mBluetoothDevice.getAddress(), connectAuto);
         }
 
@@ -362,13 +368,16 @@ public class QBLE extends QGattCallback {
         }
     };
 
+
     public void setBLECallBackListener() {
         mBluetoothLeService.setGattListener(this);
     }
 
     /**
-     * Set the BluetoothDevice for Connecting bluetooth.
-     * When you call code { connectBLE() } ,You need to call this code before it.
+     * @param bluetoothDevice bluetoothDevice
+     *                        Set the BluetoothDevice for Connecting bluetooth.
+     *                        When you call code { connectBLE() } ,You need to call this code before it.
+     * @return this
      */
     public QBLE withBluetoothDevice(BluetoothDevice bluetoothDevice) {
         this.mBluetoothDevice = bluetoothDevice;
@@ -381,12 +390,16 @@ public class QBLE extends QGattCallback {
      * Register a callback to be invoked when this phone is connecting bluetooth.
      *
      * @param o the callback that will run.
+     * @return this
      */
     public QBLE setOnLeConnectListener(onLeConnectListener o) {
         this.mOnLeConnectListener = o;
         return this;
     }
 
+    /**
+     * @return this
+     */
     public QBLE unLeConnectListener() {
         this.mOnLeConnectListener = null;
         return this;
@@ -412,7 +425,8 @@ public class QBLE extends QGattCallback {
     }
 
     /**
-     * do connect bluetooth with using BluetoothDevice.
+     * @param b BluetoothDevice
+     *          do connect bluetooth with using BluetoothDevice.
      */
     public void doConnect(BluetoothDevice b) {
         connectBLE(b, connectAuto);
@@ -422,6 +436,8 @@ public class QBLE extends QGattCallback {
 
     /**
      * Get the bluetooth connected status.
+     *
+     * @return Connected
      */
     public boolean getConnected() {
         return mConnected;
@@ -434,26 +450,25 @@ public class QBLE extends QGattCallback {
             String action = intent.getAction();
             if (BluetoothLeService.ACTION_GATT_CONNECTED.equals(action)) {
 
-                //已连接
                 mConnected = true;
                 mBluetoothGatt = mBluetoothLeService.getBluetoothGatt();
                 if (mOnLeConnectListener != null) {
                     mOnLeConnectListener.onConnectSuccess();
                 }
             } else if (BluetoothLeService.ACTION_GATT_DISCONNECTED.equals(action)) {
-                //没连接上
+
                 mConnected = false;
                 if (mOnLeConnectListener != null) {
                     mOnLeConnectListener.onConnectFailure();
                 }
             } else if (BluetoothLeService.ACTION_GATT_SERVICES_DISCOVERED.equals(action)) {
-                //发现服务
+
                 // displayGattService(mBluetoothLeService.getSupportedGattServices());
             } else if (BluetoothLeService.ACTION_DATA_AVAILABLE.equals(action)) {
-                //从设备接收到的数据。这可能是读取或通知操作的结果。
+
 
             } else if (BluetoothLeService.EXTRA_DATA.equals(action)) {
-                //获取通知
+
             }
         }
     };
@@ -488,7 +503,6 @@ public class QBLE extends QGattCallback {
 
 
     //
-    //演示了如何遍历支持GATT服务/特征
     //
     private void displayGattService(List<BluetoothGattService> gattServices) {
         if (gattServices == null) {
@@ -498,9 +512,9 @@ public class QBLE extends QGattCallback {
         String uuid = null;
         String unknownServiceString = "Unknown service";
         String unknownCharaString = "Unknown characteristic";
-        //所有的服务列表
+
         ArrayList<HashMap<String, String>> gattServiceData = new ArrayList<>();
-        //所有的特征列表
+
         ArrayList<ArrayList<HashMap<String, String>>> gattCharacteristicData =
                 new ArrayList<>();
         for (BluetoothGattService gattService : gattServices) {
@@ -520,7 +534,7 @@ public class QBLE extends QGattCallback {
                     gattService.getCharacteristics();
             ArrayList<BluetoothGattCharacteristic> charas =
                     new ArrayList<>();
-            //循环全部可以使用的特征
+
             for (BluetoothGattCharacteristic gattCharacteristic : gattCharacteristics) {
                 charas.add(gattCharacteristic);
                 HashMap<String, String> currentCharaData = new HashMap<>();
@@ -542,6 +556,8 @@ public class QBLE extends QGattCallback {
      * @param enable                   is open this Characteristic Notification ?
      * @param serviceUUIDString        service UUID use String
      * @param characteristicUUIDString characteristic UUID use String
+     * @param onNotificationListener   onNotificationListener
+     * @return this
      */
     public QBLE enableCharacteristicNotification(boolean enable, String serviceUUIDString,
                                                  String characteristicUUIDString,
@@ -567,12 +583,16 @@ public class QBLE extends QGattCallback {
         if (onNotificationListener != null) this.mOnNotificationListener = onNotificationListener;
     }
 
+    /**
+     * @param characteristic characteristic
+     * @param enabled        enabled
+     */
     private void setCharacteristicNotification(BluetoothGattCharacteristic characteristic,
                                                boolean enabled) {
         int charaProp = characteristic.getProperties();
 //        if ((charaProp | BluetoothGattCharacteristic.PROPERTY_READ) > 0) {
 //            if (mNotifyCharacteristic != null) {
-//                //如果这个特征是正在活动的，清除掉它，使之不会产生重复回调
+//
 //                mBluetoothLeService.setCharacteristicNotification(
 //                        mNotifyCharacteristic, false);
 //                mNotifyCharacteristic = null;
@@ -588,6 +608,10 @@ public class QBLE extends QGattCallback {
 
     /**
      * Enable Bluetooth feature notifications about many Characteristics.
+     *
+     * @param enable                      enable
+     * @param serviceUUIDString           serviceUUIDString
+     * @param arrCharacteristicUUIDString arrCharacteristicUUIDString
      */
     public void enableAllCharacteristicNotification(boolean enable, String serviceUUIDString,
                                                     String[] arrCharacteristicUUIDString) {
@@ -604,6 +628,7 @@ public class QBLE extends QGattCallback {
 
     /**
      * Enable Bluetooth feature notifications about many Characteristics.
+     *
      */
     public void enableAllCharacteristicNotification(boolean enable, String serviceUUIDString,
                                                     String[] arrCharacteristicUUIDString,
@@ -704,7 +729,7 @@ public class QBLE extends QGattCallback {
     @Override
     public void onConnectionStateChange(BluetoothGatt gatt, int status, int newState) {
         if (newState == BluetoothProfile.STATE_CONNECTED) {
-            //连接成功,同时关闭扫描
+
             mConnected = true;
             mBluetoothGatt = mBluetoothLeService.getBluetoothGatt();
             stopScanning();
@@ -720,7 +745,7 @@ public class QBLE extends QGattCallback {
                         });
             }
         } else if (newState == BluetoothProfile.STATE_DISCONNECTED) {
-            //断开连接
+
             mConnected = false;
             Log.d(TAG, "Connection State Change be disconnect!");
             if (mOnLeConnectListener != null) {
@@ -739,7 +764,7 @@ public class QBLE extends QGattCallback {
     @Override
     public void onServicesDiscovered(BluetoothGatt gatt, int status) {
         if (status == BluetoothGatt.GATT_SUCCESS) {
-            //发现服务
+
             ServicesDiscoveredBean.setBluetoothGatt(gatt);
             ServicesDiscoveredBean.setStatus(status);
 
@@ -760,7 +785,7 @@ public class QBLE extends QGattCallback {
 
             // displayGattService(mBluetoothLeService.getSupportedGattServices());
         } else {
-            //没有发现服务
+
             Log.e(TAG, "do not discovered the ble services");
         }
     }
@@ -769,22 +794,22 @@ public class QBLE extends QGattCallback {
     @Override
     public void onCharacteristicRead(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic, int status) {
         if (status == BluetoothGatt.GATT_SUCCESS) {
-            //读取特征成功
+
             Log.d("debug", "onCharacteristicRead: " + FormatUtils.byte2HexString(characteristic.getValue()));
         } else if (status == BluetoothGatt.GATT_FAILURE) {
-            //读取特征失败
+
         }
     }
 
     @Override
     public void onCharacteristicWrite(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic, int status) {
         if (status == BluetoothGatt.GATT_SUCCESS) {
-            //特征发送数据成功
+
             if (mOnWriteCharacterListener != null) {
                 mOnWriteCharacterListener.onSuccess(characteristic);
             }
         } else {
-            //失败
+
             if (mOnWriteCharacterListener != null) {
                 mOnWriteCharacterListener.onFailure();
             }
@@ -793,7 +818,7 @@ public class QBLE extends QGattCallback {
 
     @Override
     public void onCharacteristicChanged(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic) {
-        //接收通知
+
         if (mOnNotificationListener != null) {
             Observable.just(characteristic)
                     .observeOn(AndroidSchedulers.mainThread())
@@ -812,23 +837,22 @@ public class QBLE extends QGattCallback {
     @Override
     public void onDescriptorRead(BluetoothGatt gatt, BluetoothGattDescriptor descriptor, int status) {
         if (status == BluetoothGatt.GATT_SUCCESS) {
-            //读取描述成功
+
 
         } else if (status == BluetoothGatt.GATT_FAILURE) {
-            //读取描述失败
+
         }
     }
 
     @Override
     public void onDescriptorWrite(BluetoothGatt gatt, BluetoothGattDescriptor descriptor, int status) {
         if (status == BluetoothGatt.GATT_SUCCESS) {
-            //写入描述成功
+
         } else if (status == BluetoothGatt.GATT_FAILURE) {
-            //失败
+
         }
 
     }
-
 
 
 }

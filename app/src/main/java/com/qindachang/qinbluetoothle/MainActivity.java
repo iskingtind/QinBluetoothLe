@@ -48,9 +48,7 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void onBatchScanResults(List<ScanResult> results) {
-                        for (int i=0;i<results.size();i++) {
-                            Log.d("debug", "onBatchScanResults:" + results.get(i).getDevice().getName());
-                        }
+
                     }
 
                     @Override
