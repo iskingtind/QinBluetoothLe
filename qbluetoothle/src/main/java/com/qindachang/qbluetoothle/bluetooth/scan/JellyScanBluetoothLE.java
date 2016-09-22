@@ -66,7 +66,10 @@ public class JellyScanBluetoothLE extends ScanBluetoothLE {
                 bleScanResult.setRssi(rssi);
                 bleScanResult.setScanRecord(scanRecord);
                 mBLEScanResultList.add(bleScanResult);
-                handler.obtainMessage(HandlerConstant.SCAN_RESULT, bleScanResult);
+                ScanBean.bluetoothDevice = bluetoothDevice;
+                ScanBean.rssi = rssi;
+                ScanBean.scanRecord = scanRecord;
+                handler.obtainMessage(HandlerConstant.SCAN_RESULT).sendToTarget();
             }
         }
     };

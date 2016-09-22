@@ -21,7 +21,7 @@ import android.util.Log;
 
 import com.qindachang.qbluetoothle.bluetooth.attributes.SampleGattAttributes;
 import com.qindachang.qbluetoothle.bluetooth.attributes.ServicesDiscoveredBean;
-import com.qindachang.qbluetoothle.bluetooth.builder.BluetoothLEConfigure;
+import com.qindachang.qbluetoothle.bluetooth.configure.BluetoothLEConfigure;
 import com.qindachang.qbluetoothle.bluetooth.callback.QGattCallback;
 import com.qindachang.qbluetoothle.bluetooth.listener.onLeConnectListener;
 import com.qindachang.qbluetoothle.bluetooth.listener.onLeScanListener;

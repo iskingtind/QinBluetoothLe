@@ -4,6 +4,12 @@ This is the Android BluetoothLe library, which allows you to be very convenient 
 
 ##How to use
 
+### init
+
+In your Application.java or MainActivity.java ,first initialize:
+
+    QinBluetoothManager.initialize(this);
+
 ###Scan BluetoothLe
 
 ####① Just scan

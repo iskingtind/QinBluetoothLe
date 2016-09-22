@@ -1,15 +1,15 @@
 package com.qindachang.qbluetoothle.bluetooth.ble;
 
 import android.annotation.TargetApi;
-import android.content.pm.ProviderInfo;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 
-import com.qindachang.qbluetoothle.bluetooth.builder.BluetoothLEConfigure;
+import com.qindachang.qbluetoothle.bluetooth.configure.BluetoothLEConfigure;
 import com.qindachang.qbluetoothle.bluetooth.constant.HandlerConstant;
 import com.qindachang.qbluetoothle.bluetooth.scan.BLEScanResult;
+import com.qindachang.qbluetoothle.bluetooth.scan.ScanBean;
 import com.qindachang.qbluetoothle.bluetooth.scan.ScanBluetoothLE;
 import com.qindachang.qbluetoothle.bluetooth.scan.ScanBluetoothLEFactory;
 import com.qindachang.qbluetoothle.bluetooth.scan.OnScanCallBack;
@@ -113,9 +113,8 @@ public class QinBluetoothLE {
         public boolean handleMessage(Message message) {
             switch (message.what) {
                 case HandlerConstant.SCAN_RESULT:
-                    BLEScanResult bleScanResult = (BLEScanResult) message.obj;
                     if (mOnScanCallBack != null) {
-                        mOnScanCallBack.onScanResult(bleScanResult.getBluetoothDevice(), bleScanResult.getRssi(), bleScanResult.getScanRecord());
+                        mOnScanCallBack.onScanResult(ScanBean.bluetoothDevice, ScanBean.rssi, ScanBean.scanRecord);
                     }
                     break;
                 case HandlerConstant.BATCH_SCAN_RESULTS:

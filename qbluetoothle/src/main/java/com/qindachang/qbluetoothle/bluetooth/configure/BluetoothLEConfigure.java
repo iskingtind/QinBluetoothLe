@@ -1,4 +1,4 @@
-package com.qindachang.qbluetoothle.bluetooth.builder;
+package com.qindachang.qbluetoothle.bluetooth.configure;
 
 /**
  * Created by admin on 2016/9/21.
@@ -14,5 +14,7 @@ public class BluetoothLEConfigure {
     public static int getSDK_VERSION() {
         return SDK_VERSION;
     }
+
+
 
 }
