@@ -7,14 +7,14 @@ import android.bluetooth.le.ScanResult;
 import java.util.List;
 
 /**
- * Created by admin on 2016/9/21.
+ *
+ * Created by qin da chang on 2016/9/21.
  */
 public abstract class OnScanCallBack {
 
     public abstract void onScanResult(BluetoothDevice bluetoothDevice, int rssi, byte[] scanRecord);
 
     public abstract void onBatchScanResults(List<ScanResult> results);
-
 
     public abstract void onScanFailed(int errorCode);
 

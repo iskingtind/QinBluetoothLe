@@ -5,7 +5,8 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 /**
- * Created by admin on 2016/9/22.
+ *
+ * Created by qin da chang on 2016/9/22.
  */
 public class BLEScanResult implements Parcelable {
     private BluetoothDevice mBluetoothDevice;

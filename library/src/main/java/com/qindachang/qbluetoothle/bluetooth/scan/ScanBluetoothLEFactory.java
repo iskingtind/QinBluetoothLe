@@ -3,7 +3,8 @@ package com.qindachang.qbluetoothle.bluetooth.scan;
 import android.os.Handler;
 
 /**
- * Created by admin on 2016/9/21.
+ *
+ * Created by qin da chang on 2016/9/21.
  */
 public class ScanBluetoothLEFactory {
 
