@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.qindachang.qbluetoothle.bluetooth.ble.QinBluetoothLE;
 import com.qindachang.qbluetoothle.bluetooth.scan.BLEScanResult;
-import com.qindachang.qbluetoothle.bluetooth.scan.OnScanCallBack;
+import com.qindachang.qbluetoothle.bluetooth.scan.OnScanListener;
 
 import java.util.List;
 
@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void scan() {
         qinBluetoothLE.setScanPeriod(20000)
-                .setOnBLEScanListener(new OnScanCallBack() {
+                .setOnBLEScanListener(new OnScanListener() {
                     @Override
                     public void onScanResult(BluetoothDevice bluetoothDevice, int rssi, byte[] scanRecord) {
                         Log.d("debug", "找到蓝牙设备：" + bluetoothDevice.getName());

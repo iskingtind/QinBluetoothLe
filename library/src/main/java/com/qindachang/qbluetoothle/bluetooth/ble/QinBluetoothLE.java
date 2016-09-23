@@ -1,6 +1,7 @@
 package com.qindachang.qbluetoothle.bluetooth.ble;
 
 import android.annotation.TargetApi;
+import android.bluetooth.BluetoothDevice;
 import android.bluetooth.le.ScanResult;
 import android.os.Build;
 import android.os.Handler;
@@ -8,10 +9,11 @@ import android.os.Message;
 import android.util.Log;
 
 import com.qindachang.qbluetoothle.bluetooth.configure.Config;
+import com.qindachang.qbluetoothle.bluetooth.connect.OnConnectListener;
 import com.qindachang.qbluetoothle.bluetooth.constant.HandlerConstant;
 import com.qindachang.qbluetoothle.bluetooth.constant.Version;
 import com.qindachang.qbluetoothle.bluetooth.scan.BLEScanResult;
-import com.qindachang.qbluetoothle.bluetooth.scan.OnScanCallBack;
+import com.qindachang.qbluetoothle.bluetooth.scan.OnScanListener;
 import com.qindachang.qbluetoothle.bluetooth.scan.ScanBean;
 import com.qindachang.qbluetoothle.bluetooth.scan.ScanBluetoothLE;
 import com.qindachang.qbluetoothle.bluetooth.scan.ScanBluetoothLEFactory;
@@ -27,7 +29,8 @@ public class QinBluetoothLE {
 
     private final String TAG = QinBluetoothLE.class.getName();
 
-    private OnScanCallBack mOnScanCallBack;
+    private OnScanListener mOnScanListener;
+    private OnConnectListener mOnConnectListener;
 
     private int scanPeriod = 10000;
 
@@ -86,6 +89,11 @@ public class QinBluetoothLE {
         this.doScanWithServiceUUID(serviceUUIDs);
     }
 
+    public void doScanWithServiceUUID(String ServiceUUID) {
+        UUID[] serviceUUID = new UUID[]{UUID.fromString(ServiceUUID)};
+        this.doScanWithServiceUUID(serviceUUID);
+    }
+
     /**
      * start bluetooth le scan with use service uuid
      *
@@ -99,12 +107,12 @@ public class QinBluetoothLE {
      * This method requires more than Android's LOLLIPOP system can be used
      */
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public void doScanWithScanFilter() {
+    private void doScanWithScanFilter() {
 
     }
 
-    public QinBluetoothLE setOnBLEScanListener(OnScanCallBack onScanCallBack) {
-        mOnScanCallBack = onScanCallBack;
+    public QinBluetoothLE setOnBLEScanListener(OnScanListener onScanListener) {
+        mOnScanListener = onScanListener;
         return this;
     }
 
@@ -116,29 +124,57 @@ public class QinBluetoothLE {
         return isScanning;
     }
 
+    public QinBluetoothLE setOnConnectListener(OnConnectListener onConnectListener) {
+        mOnConnectListener = onConnectListener;
+        return this;
+    }
+
+    private boolean autoConnect = false;
+
+    public QinBluetoothLE setAutoConnect(boolean autoConnect) {
+        this.autoConnect = autoConnect;
+        return this;
+    }
+
+    private BluetoothDevice mBluetoothDevice;
+
+    public QinBluetoothLE withBluetoothDevice(BluetoothDevice bluetoothDevice) {
+        this.mBluetoothDevice = bluetoothDevice;
+        return this;
+    }
+
+    public void doConnect() {
+
+    }
+
+    private void connectBLE() {
+
+    }
+
+
     private Handler mHandler = new Handler(new Handler.Callback() {
         @Override
         public boolean handleMessage(Message message) {
             switch (message.what) {
                 case HandlerConstant.SCAN_RESULT:
-                    if (mOnScanCallBack != null) {
-                        mOnScanCallBack.onScanResult(ScanBean.bluetoothDevice, ScanBean.rssi, ScanBean.scanRecord);
+                    if (mOnScanListener != null) {
+                        mOnScanListener.onScanResult(ScanBean.bluetoothDevice, ScanBean.rssi, ScanBean.scanRecord);
                     }
                     break;
                 case HandlerConstant.BATCH_SCAN_RESULTS:
-                    if (mOnScanCallBack != null&&Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                        mOnScanCallBack.onBatchScanResults((List<ScanResult>) message.obj);
+                    if (mOnScanListener != null&&Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        mOnScanListener.onBatchScanResults((List<ScanResult>) message.obj);
                     }
                     break;
                 case HandlerConstant.SCAN_FAILED:
-                    if (mOnScanCallBack != null) {
-                        mOnScanCallBack.onScanFailed((Integer) message.obj);
+                    if (mOnScanListener != null) {
+                        mOnScanListener.onScanFailed((Integer) message.obj);
                     }
                     break;
                 case HandlerConstant.SCAN_COMPLETED:
                     List<BLEScanResult> bleScanResults = (List<BLEScanResult>) message.obj;
-                    if (mOnScanCallBack != null) {
-                        mOnScanCallBack.onScanCompleted(bleScanResults);
+                    if (mOnScanListener != null) {
+                        mOnScanListener.onScanCompleted(bleScanResults);
                     }
                     break;
                 case HandlerConstant.SCANNING:
