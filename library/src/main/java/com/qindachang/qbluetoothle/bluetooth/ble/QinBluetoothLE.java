@@ -50,7 +50,9 @@ public class QinBluetoothLE {
     }
 
     /**
-     * setting bluetooth le scan period . if you doesn't setting about this.the default period is 10000 millis.
+     * setting bluetooth le scan period .
+     * @param scanPeriod if you doesn't setting about this.the default period is 10000 millis.
+     * @return QinBluetoothLE.class
      */
     public QinBluetoothLE setScanPeriod(int scanPeriod) {
         this.scanPeriod = scanPeriod;
@@ -108,6 +110,7 @@ public class QinBluetoothLE {
 
     /**
      * Get Bluetooth scan status
+     * @return Bluetooth scan status
      */
     public boolean getScanning() {
         return isScanning;

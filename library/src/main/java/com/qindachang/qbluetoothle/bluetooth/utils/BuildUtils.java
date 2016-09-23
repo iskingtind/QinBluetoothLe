@@ -8,6 +8,7 @@ import android.os.Build;
 public class BuildUtils {
     /**
      * 获取手机系统版本
+     * @return int of phone system version
      */
     public static int getSystemAPILevel() {
         return Build.VERSION.SDK_INT;
@@ -15,6 +16,7 @@ public class BuildUtils {
 
     /**
      * 获取手机型号
+     * @return string of phone model
      */
     public static String getPhoneModel() {
         return Build.MODEL;

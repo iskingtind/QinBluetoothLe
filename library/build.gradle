@@ -32,7 +32,7 @@ dependencies {
 
 //添加
 publish {
-    userOrg = '823951895@qq.com'//bintray.com用户名
+    userOrg = 'qindachang'//bintray.com用户名
     groupId = 'com.qindachang'//jcenter上的路径
     artifactId = 'QinBluetoothLe'//项目名称
     publishVersion = '0.0.1'//版本号

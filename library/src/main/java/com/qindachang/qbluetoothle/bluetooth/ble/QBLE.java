@@ -43,7 +43,7 @@ import rx.functions.Action1;
  * Created by qin on 2016/8/24.
  *
  * @author Qin Da chang
- *         link -> http://qindachang.github.io/
+ *         link - http://qindachang.github.io/
  */
 public class QBLE extends QGattCallback {
 
@@ -409,6 +409,7 @@ public class QBLE extends QGattCallback {
      * Set QBLE to automatically connect Bluetooth when Bluetooth is disconnected
      *
      * @param auto true is automatically
+     * @return this
      */
     public QBLE setAuto(boolean auto) {
         this.connectAuto = auto;
@@ -568,9 +569,10 @@ public class QBLE extends QGattCallback {
     /**
      * Enable Bluetooth feature notifications about Characteristic.
      *
-     * @param enable             is open this Characteristic Notification ?
-     * @param serviceUUID        service UUID use UUID
-     * @param characteristicUUID characteristic UUID use UUID
+     * @param enable                 is open this Characteristic Notification ?
+     * @param serviceUUID            service UUID use UUID
+     * @param characteristicUUID     characteristic UUID use UUID
+     * @param onNotificationListener onNotificationListener
      */
     public void enableCharacteristicNotification(boolean enable, UUID serviceUUID,
                                                  UUID characteristicUUID,
@@ -627,6 +629,10 @@ public class QBLE extends QGattCallback {
     /**
      * Enable Bluetooth feature notifications about many Characteristics.
      *
+     * @param enable                      enable
+     * @param serviceUUIDString           serviceUUIDString
+     * @param arrCharacteristicUUIDString arrCharacteristicUUIDString
+     * @param onNotificationListener      onNotificationListener
      */
     public void enableAllCharacteristicNotification(boolean enable, String serviceUUIDString,
                                                     String[] arrCharacteristicUUIDString,
@@ -665,6 +671,10 @@ public class QBLE extends QGattCallback {
 
     /**
      * Write data to bluetooth Characteristic
+     *
+     * @param data                     data
+     * @param serviceUUIDString        serviceUUIDString
+     * @param characteristicUUIDString characteristicUUIDString
      */
     public void writeDataToCharacteristic(byte[] data, String serviceUUIDString,
                                           String characteristicUUIDString) {
@@ -675,6 +685,11 @@ public class QBLE extends QGattCallback {
 
     /**
      * Write data to bluetooth Characteristic
+     *
+     * @param data                     data
+     * @param serviceUUIDString        serviceUUIDString
+     * @param characteristicUUIDString characteristicUUIDString
+     * @param onWriteCharacterListener Write CharacterListener
      */
     public void writeDataToCharacteristic(byte[] data, String serviceUUIDString,
                                           String characteristicUUIDString,
@@ -686,6 +701,11 @@ public class QBLE extends QGattCallback {
 
     /**
      * Write data to bluetooth Characteristic
+     *
+     * @param data                     data
+     * @param serviceUUID              serviceUUID
+     * @param characteristicUUID       characteristicUUID
+     * @param onWriteCharacterListener Write CharacterListener
      */
     public void writeDataToCharacteristic(byte[] data, UUID serviceUUID, UUID characteristicUUID,
                                           onWriteCharacterListener onWriteCharacterListener) {
@@ -697,6 +717,9 @@ public class QBLE extends QGattCallback {
             this.mOnWriteCharacterListener = onWriteCharacterListener;
     }
 
+    /**
+     * @return this
+     */
     public QBLE unWriteChatacterListener() {
         mOnWriteCharacterListener = null;
         return this;

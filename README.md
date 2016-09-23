@@ -4,7 +4,14 @@ This is the Android BluetoothLe library, which allows you to be very convenient 
 
 ##How to use
 
-### init
+
+### Using QinBluetoothLE in your application.
+
+If you are building with Gradle, simply add the following line to the dependencies section of your build.gradle file:
+
+    compile 'com.qindachang:QinBluetoothLe:0.0.1'
+
+### Initialize
 
 In your Application.java or MainActivity.java ,first initialize:
 
