@@ -4,7 +4,7 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.os.Handler;
 
-import com.qindachang.qbluetoothle.bluetooth.adapter.QinBluetoothAdapter;
+import com.qindachang.qbluetoothle.bluetooth.bean.QinBluetoothAdapterBean;
 import com.qindachang.qbluetoothle.bluetooth.constant.HandlerConstant;
 
 import java.util.ArrayList;
@@ -17,7 +17,7 @@ import java.util.UUID;
  */
 public class JellyScanBluetoothLE extends ScanBluetoothLE {
 
-    private BluetoothAdapter mBluetoothAdapter = QinBluetoothAdapter.getBluetoothAdapter();
+    private BluetoothAdapter mBluetoothAdapter = QinBluetoothAdapterBean.getBluetoothAdapter();
     private Handler mHandler = new Handler();
     private boolean mScanning;
     private List<BLEScanResult> mBLEScanResultList = new ArrayList<>();

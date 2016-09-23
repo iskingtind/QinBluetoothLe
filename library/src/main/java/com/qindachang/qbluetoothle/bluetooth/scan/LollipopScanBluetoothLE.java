@@ -8,7 +8,7 @@ import android.bluetooth.le.ScanResult;
 import android.os.Build;
 import android.os.Handler;
 
-import com.qindachang.qbluetoothle.bluetooth.adapter.QinBluetoothAdapter;
+import com.qindachang.qbluetoothle.bluetooth.bean.QinBluetoothAdapterBean;
 import com.qindachang.qbluetoothle.bluetooth.constant.HandlerConstant;
 
 import java.util.ArrayList;
@@ -23,7 +23,7 @@ import java.util.UUID;
 public class LollipopScanBluetoothLE extends ScanBluetoothLE {
 
     private Handler mHandler = new Handler();
-    private BluetoothLeScanner mBluetoothLeScanner = QinBluetoothAdapter.getBluetoothAdapter().getBluetoothLeScanner();
+    private BluetoothLeScanner mBluetoothLeScanner = QinBluetoothAdapterBean.getBluetoothAdapter().getBluetoothLeScanner();
     private boolean mScanning;
     private List<BLEScanResult> mBLEScanResultList = new ArrayList<>();
     private List<BluetoothDevice> mBluetoothDeviceList = new ArrayList<>();

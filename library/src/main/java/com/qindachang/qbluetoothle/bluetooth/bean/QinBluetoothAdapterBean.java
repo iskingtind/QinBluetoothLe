@@ -1,11 +1,12 @@
-package com.qindachang.qbluetoothle.bluetooth.adapter;
+package com.qindachang.qbluetoothle.bluetooth.bean;
 
 import android.bluetooth.BluetoothAdapter;
 
 /**
- * Created by admin on 2016/9/21.
+ *
+ * Created by qin da chang on 2016/9/21.
  */
-public class QinBluetoothAdapter {
+public class QinBluetoothAdapterBean {
 
     private static BluetoothAdapter mBluetoothAdapter;
 

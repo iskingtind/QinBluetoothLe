@@ -1,9 +1,10 @@
-package com.qindachang.qbluetoothle.bluetooth.attributes;
+package com.qindachang.qbluetoothle.bluetooth.bean;
 
 import android.bluetooth.BluetoothGatt;
 
 /**
- * Created by admin on 2016/8/31.
+ *
+ * Created by qin da chang on 2016/8/31.
  */
 public class ServicesDiscoveredBean {
 

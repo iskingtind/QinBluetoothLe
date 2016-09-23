@@ -7,19 +7,20 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 
-import com.qindachang.qbluetoothle.bluetooth.configure.BluetoothLEConfigure;
+import com.qindachang.qbluetoothle.bluetooth.configure.Config;
 import com.qindachang.qbluetoothle.bluetooth.constant.HandlerConstant;
+import com.qindachang.qbluetoothle.bluetooth.constant.Version;
 import com.qindachang.qbluetoothle.bluetooth.scan.BLEScanResult;
+import com.qindachang.qbluetoothle.bluetooth.scan.OnScanCallBack;
 import com.qindachang.qbluetoothle.bluetooth.scan.ScanBean;
 import com.qindachang.qbluetoothle.bluetooth.scan.ScanBluetoothLE;
 import com.qindachang.qbluetoothle.bluetooth.scan.ScanBluetoothLEFactory;
-import com.qindachang.qbluetoothle.bluetooth.scan.OnScanCallBack;
-import com.qindachang.qbluetoothle.bluetooth.type.Version;
 
 import java.util.List;
 import java.util.UUID;
 
 /**
+ *
  * Created by qin da chang on 2016/9/21.
  */
 public class QinBluetoothLE {
@@ -36,7 +37,7 @@ public class QinBluetoothLE {
 
     private void scanBLE(boolean enable, int SCAN_PERIOD, UUID[] serviceUUID) {
         ScanBluetoothLEFactory scanBluetoothLEFactory = new ScanBluetoothLEFactory();
-        if (BluetoothLEConfigure.getSDK_VERSION() >= 21 && Version.PHONE_SYSTEM >= 21) {
+        if (Config.bluetoothLEConfigure.getSDK_VERSION() >= 21 && Version.PHONE_SYSTEM >= 21) {
             //5.x API
             Log.v(TAG, "use LOLLIPOP SDK VERSION Scan bluetoothLE API21");
             scanBluetoothLE = scanBluetoothLEFactory.getScanBluetoothLE(ScanBluetoothLEFactory.LOLLIPOP, mHandler);

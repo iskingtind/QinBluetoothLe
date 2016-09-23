@@ -1,8 +1,9 @@
-package com.qindachang.qbluetoothle.bluetooth.type;
+package com.qindachang.qbluetoothle.bluetooth.constant;
 
 
 /**
- * Created by admin on 2016/9/21.
+ *
+ * Created by qin da chang on 2016/9/21.
  */
 public class Version {
     public static final int JELLY_BEAN = 18;

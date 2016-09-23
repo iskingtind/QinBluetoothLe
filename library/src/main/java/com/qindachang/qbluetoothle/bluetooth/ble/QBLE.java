@@ -20,7 +20,7 @@ import android.os.IBinder;
 import android.util.Log;
 
 import com.qindachang.qbluetoothle.bluetooth.attributes.SampleGattAttributes;
-import com.qindachang.qbluetoothle.bluetooth.attributes.ServicesDiscoveredBean;
+import com.qindachang.qbluetoothle.bluetooth.bean.ServicesDiscoveredBean;
 import com.qindachang.qbluetoothle.bluetooth.configure.BluetoothLEConfigure;
 import com.qindachang.qbluetoothle.bluetooth.callback.QGattCallback;
 import com.qindachang.qbluetoothle.bluetooth.listener.onLeConnectListener;
@@ -88,8 +88,6 @@ public class QBLE extends QGattCallback {
 
     public void init(Context context, int sdk_version) {
         this.mContext = context;
-        mConfigure = new BluetoothLEConfigure();
-        mConfigure.setSDK_VERSION(sdk_version);
         if (mBluetoothAdapter == null) {
             final BluetoothManager bluetoothManager =
                     (BluetoothManager) context.getSystemService(Context.BLUETOOTH_SERVICE);
