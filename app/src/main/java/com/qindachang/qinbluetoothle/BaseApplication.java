@@ -14,9 +14,9 @@ public class BaseApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        BluetoothLEConfigure configure = new BluetoothLEConfigure.Builder()
-                .setAPISDKVersion(Version.AUTO).create();
-        QinBluetoothManager.initialize(this,configure);
+    BluetoothLEConfigure configure = new BluetoothLEConfigure.Builder()
+            .setAPISDKVersion(Version.LOLLIPOP).create();
+    QinBluetoothManager.initialize(this,configure);
 
     }
 }

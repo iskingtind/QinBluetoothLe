@@ -17,6 +17,26 @@ Firstly , in your Application.java or MainActivity.java to initialize:
 
     QinBluetoothManager.initialize(this);
 
+Configure this library of BluetoothLE API about Android 4.3 or Android 5 or even automatic selection.
+
+using 4.3 bluetoothLE API
+
+    BluetoothLEConfigure configure = new BluetoothLEConfigure.Builder()
+            .setAPISDKVersion(Version.JELLY_BEAN).create();
+    QinBluetoothManager.initialize(this,configure);
+
+using 5.x bluetoothLE API
+
+    BluetoothLEConfigure configure = new BluetoothLEConfigure.Builder()
+            .setAPISDKVersion(Version.LOLLIPOP).create();
+    QinBluetoothManager.initialize(this,configure);
+
+automatic selection.If phone system version lower than LOLLIPOP,use 4.3 bluetoothLE API.else other.
+
+    BluetoothLEConfigure configure = new BluetoothLEConfigure.Builder()
+            .setAPISDKVersion(Version.AUTO).create();
+    QinBluetoothManager.initialize(this, configure);
+
 ###Scan BluetoothLe
 
 ####① Just scan
