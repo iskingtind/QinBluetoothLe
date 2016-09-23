@@ -38,28 +38,28 @@ public class LollipopScanBluetoothLE extends ScanBluetoothLE {
         @Override
         public void onScanResult(int callbackType, ScanResult result) {
             super.onScanResult(callbackType, result);
-//            if (!mBluetoothDeviceList.contains(result.getDevice())) {
-//                mBluetoothDeviceList.add(result.getDevice());
-//                BLEScanResult bleScanResult = new BLEScanResult();
-//                bleScanResult.setBluetoothDevice(result.getDevice());
-//                bleScanResult.setRssi(result.getRssi());
-//                bleScanResult.setScanRecord(result.getScanRecord().getBytes());
-//                mBLEScanResultList.add(bleScanResult);
-//                ScanBean.bluetoothDevice = result.getDevice();
-//                ScanBean.rssi = result.getRssi();
-//                ScanBean.scanRecord = result.getScanRecord().getBytes();
-//                handler.obtainMessage(HandlerConstant.SCAN_RESULT).sendToTarget();
-//            }
+            if (!mBluetoothDeviceList.contains(result.getDevice())) {
+                mBluetoothDeviceList.add(result.getDevice());
+                BLEScanResult bleScanResult = new BLEScanResult();
+                bleScanResult.setBluetoothDevice(result.getDevice());
+                bleScanResult.setRssi(result.getRssi());
+                bleScanResult.setScanRecord(result.getScanRecord().getBytes());
+                mBLEScanResultList.add(bleScanResult);
+                ScanBean.bluetoothDevice = result.getDevice();
+                ScanBean.rssi = result.getRssi();
+                ScanBean.scanRecord = result.getScanRecord().getBytes();
+                handler.obtainMessage(HandlerConstant.SCAN_RESULT).sendToTarget();
+            }
 
-            BLEScanResult bleScanResult = new BLEScanResult();
-            bleScanResult.setBluetoothDevice(result.getDevice());
-            bleScanResult.setRssi(result.getRssi());
-            bleScanResult.setScanRecord(result.getScanRecord().getBytes());
-            mBLEScanResultList.add(bleScanResult);
-            ScanBean.bluetoothDevice = result.getDevice();
-            ScanBean.rssi = result.getRssi();
-            ScanBean.scanRecord = result.getScanRecord().getBytes();
-            handler.obtainMessage(HandlerConstant.SCAN_RESULT).sendToTarget();
+//            BLEScanResult bleScanResult = new BLEScanResult();
+//            bleScanResult.setBluetoothDevice(result.getDevice());
+//            bleScanResult.setRssi(result.getRssi());
+//            bleScanResult.setScanRecord(result.getScanRecord().getBytes());
+//            mBLEScanResultList.add(bleScanResult);
+//            ScanBean.bluetoothDevice = result.getDevice();
+//            ScanBean.rssi = result.getRssi();
+//            ScanBean.scanRecord = result.getScanRecord().getBytes();
+//            handler.obtainMessage(HandlerConstant.SCAN_RESULT).sendToTarget();
         }
 
         @Override
@@ -77,7 +77,7 @@ public class LollipopScanBluetoothLE extends ScanBluetoothLE {
 
     @Override
     public void ScanBLE(boolean enable, int SCAN_PERIOD, UUID[] serviceUUID) {
-//        mBluetoothDeviceList.clear();
+        mBluetoothDeviceList.clear();
         mBLEScanResultList.clear();
         if (enable) {
             mHandler.postDelayed(new Runnable() {

@@ -5,4 +5,7 @@ package com.qindachang.qbluetoothle.bluetooth.connect;
  */
 public abstract class OnConnectCallBack {
 
+    public abstract void onConnectSuccess();
+
+    public abstract void onConnectFailure();
 }
