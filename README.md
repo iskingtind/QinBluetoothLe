@@ -1,11 +1,11 @@
-#Android BluetoothLe library
+#Android BluetoothLE library
 
 This is the Android BluetoothLe library, which allows you to be very convenient to use Android's low-power Bluetooth API and you do not need to care about the specific details of the implementation. Currently the project is beginning to write. Later it will bring you great convenience. X:D
 
 ##How to use
 
 
-### Using QinBluetoothLE in your application.
+### Using BluetoothLE library in your application.
 
 If you are building with Gradle, simply add the following line to the dependencies section of your build.gradle file:
 
@@ -13,7 +13,7 @@ If you are building with Gradle, simply add the following line to the dependenci
 
 ### Initialize
 
-In your Application.java or MainActivity.java ,first initialize:
+Firstly , in your Application.java or MainActivity.java to initialize:
 
     QinBluetoothManager.initialize(this);
 
